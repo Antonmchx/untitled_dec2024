@@ -376,10 +376,15 @@ uniform vec2 u_resolution;
 uniform float toggle, u_time;
 out vec4 final;
 
-// Функция для генерации псевдошума
 float noise(vec2 p) {
-    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
+    vec2 period = vec2(50.0);
+    vec2 wrapped = mod(p, period);
+    return fract(sin(dot(wrapped, vec2(127.1, 311.7))) * 43758.5453123);
 }
+ // Функция для генерации псевдошума
+// float noise(vec2 p) {
+//     return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
+// }
 
     vec3 desaturate(vec3 color, float amount) {
     float gray = dot(color, vec3(0.1098, 0.1725, 0.5882)); // стандартный способ получить яркость
