@@ -20,12 +20,12 @@ let c1, c2, c3, c4, c5, c6, mixC;
 let mix1, mix2, smStep1, smStep2;
 
 // positions = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26"];
-positions = ["1","2","3","5","6","8","12","16","15","17","18","19","20","21","22","23","24","26"];
+positions = ["1","2","3","5","6","8","11","12","13","14","16","15","17","18","19","20","21","22","23","24","26"];
 ps = gR(positions);
-//  ps = "6";
+//  ps = "22";
 
 // Q
-// 13, 10, 4, 14, 9, 11, 25, 7
+// 13-done, 10, 4, 14-good, 9, 11, 25, 7
 console.log(ps);
 console.log("curated vers");
 if (ps === "1"){
@@ -226,17 +226,18 @@ if (ps === "1"){
         smStep1 ="c,col2,smoothstep(0.4, 0.9, noiseValue)";
         smStep2 = "0.3, 0.9";
    }else if(ps ==="13"){
-        amplitude = "0.45";//0.55
+        amplitude = "0.4";//0.55
         uvY = "4.5";
-        uvX = "0.5";
-        start = "3.";
+        uvX = "0.7";
+        start = "5.";
         c1 = "vec3(0.0471, 0.1255, 0.251)";
         c2 = "vec3(0.2863, 0.3216, 0.3373)";
         c3 = "vec3(0.902, 0.7451, 0.1255)";
         c4 = "vec3(0.8157, 0.0745, 0.5922)";
-        c5 = "vec3(0.502, 0.0588, 0.2588)";
+        c5 = "vec3(0.302, 0.0588, 0.6588)";
         c6 = "vec3(0.0275, 0.0549, 0.0941)";
-        mixC = "vec3(0.8078, 0.4039, 0.7686)";
+     //    mixC = "vec3(0.8078, 0.4039, 0.7686)";
+        mixC = "vec3(0.0549, 0.2863, 0.4431)";
         mix1 = "0.75";
         mix2 = "0.2";
         smStep1 ="col2,c,smoothstep(0.4, 0.9, noiseValue)";
@@ -541,8 +542,8 @@ void main(){
    vec2 coord = gl_FragCoord.xy/u_resolution.xy;
    float color = 0.0;
    vec3 c = ${mixC};
-   color +=sin(coord.x * 5. + cos(t + coord.y*10.+sin(coord.x*5.+t*2.)))*2.;
-   color +=cos(coord.x * 2. + sin(t + coord.y*1.+cos(coord.x*5.+t *2.)))*1.;
+   color +=sin(coord.x * 5. + cos(t + coord.y*10.+sin(coord.x*5.+t*1.)))*2.; //t*2.0
+   color +=cos(coord.x * 2. + sin(t + coord.y*1.+cos(coord.x*5.+t *2.)))*1.; //t*1.0
    color +=sin(coord.x * 3. + cos(t + coord.y*1.+sin(coord.x*5.+t*0.2)))*2.;
    color +=cos(coord.x * 1. + sin(t + coord.y*1.+cos(coord.x*5.+t*0.1)))*2.;
 
