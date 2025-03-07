@@ -2,6 +2,15 @@ function gR(i){
         let val =  i[Math.floor(Math.random(i)*i.length)];
         return val;
     }
+    function getRandomNumber() {
+     var randomNumber = Math.random() * 2;
+     randomNumber -= 1;
+     return randomNumber;
+   }
+
+   let a = getRandomNumber();
+   console.log(a);
+
 
 let positions, ps;
 
@@ -22,9 +31,9 @@ let mix1, mix2, smStep1, smStep2;
 // positions = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26"];
 positions = ["1","2","3","5","6","8","11","12","13","14","16","15","17","18","19","20","21","22","23","24","26"];
 ps = gR(positions);
-//  ps = "22";
+// ps = "5";
 
-// Q
+// Q 23, 15
 // 13-done, 10, 4, 14-good, 9, 11, 25, 7
 console.log(ps);
 console.log("curated vers");
@@ -208,10 +217,10 @@ if (ps === "1"){
         smStep1 ="col2,col,smoothstep(0.55, 0.9, noiseValue)";
         smStep2 = "0.3, 0.9";
    }else if(ps ==="12"){
-        amplitude = "0.45";//0.55
+        amplitude = "0.42";//0.55
         uvY = "5.";
         uvX = "0.9";
-        start = "3.";
+        start = "9.";
         c1 = "vec3(0.0471, 0.1255, 0.251)";
         c2 = "vec3(0.2863, 0.3216, 0.3373)";
         c3 = "vec3(0.902, 0.7451, 0.1255)";
@@ -226,7 +235,7 @@ if (ps === "1"){
         smStep1 ="c,col2,smoothstep(0.4, 0.9, noiseValue)";
         smStep2 = "0.3, 0.9";
    }else if(ps ==="13"){
-        amplitude = "0.4";//0.55
+        amplitude = "0.35";//0.55
         uvY = "4.5";
         uvX = "0.7";
         start = "5.";
@@ -377,7 +386,7 @@ if (ps === "1"){
      smStep1 ="c,col2,smoothstep(0.5, 0.9, noiseValue)";
      smStep2 = "0.3, 0.9";
 }else if(ps ==="22"){
-     amplitude = "0.35";//0.55
+     amplitude = "0.38";//0.55
      uvY = "3.5";
      uvX = "0.8";
      start = "7.";
@@ -394,10 +403,10 @@ if (ps === "1"){
      smStep1 ="col2,c,smoothstep(0.4, 0.9, noiseValue)";
      smStep2 = "0.3, 0.9";
 }else if(ps ==="23"){
-     amplitude = "0.5";//0.55
+     amplitude = "0.48";//0.55
      uvY = "4.";
      uvX = "0.8";
-     start = "8.";
+     start = "7.";
      c1 = "vec3(0.2118, 0.1059, 0.7333)";
      c2 = "vec3(0.1412, 0.0667, 0.3529)";
      c3 = "vec3(0.9098, 0.3804, 0.2471)";
@@ -530,22 +539,24 @@ void main(){
     vec2 uv = gl_FragCoord.xy / u_resolution.xy;
     uv.x *= u_resolution.x / u_resolution.y;
 
-    float t = u_time / 1000.;
+    float t = u_time / 1500.;
+    float t2 = u_time / 2000.;
 
     // Анимация северного сияния
     float timeShift = t * 0.051;
-    //                           uvY        uvX        start
-    float noiseValue = fbm(vec2(uv.y * ${uvY}, uv.x * ${uvX} - ${start} - timeShift));
+   
+    //                                   uvY            uvX       start
+    float noiseValue = fbm(vec2(uv.y * ${uvY}, uv.x * ${uvX} - ${start} + ${a} - timeShift));
 
     // Создание градиента цвета для северного сияния
 
    vec2 coord = gl_FragCoord.xy/u_resolution.xy;
    float color = 0.0;
    vec3 c = ${mixC};
-   color +=sin(coord.x * 5. + cos(t + coord.y*10.+sin(coord.x*5.+t*1.)))*2.; //t*2.0
-   color +=cos(coord.x * 2. + sin(t + coord.y*1.+cos(coord.x*5.+t *2.)))*1.; //t*1.0
-   color +=sin(coord.x * 3. + cos(t + coord.y*1.+sin(coord.x*5.+t*0.2)))*2.;
-   color +=cos(coord.x * 1. + sin(t + coord.y*1.+cos(coord.x*5.+t*0.1)))*2.;
+   color +=sin(coord.x * 5. + cos(t2 + coord.y*10.+sin(coord.x*5.+t2*1.)))*2.; //t*2.0
+   color +=cos(coord.x * 2. + sin(t2 + coord.y*1.+cos(coord.x*5.+t2 *2.)))*1.; //t*1.0
+   color +=sin(coord.x * 3. + cos(t2 + coord.y*1.+sin(coord.x*5.+t2*0.2)))*2.;
+   color +=cos(coord.x * 1. + sin(t2 + coord.y*1.+cos(coord.x*5.+t2*0.1)))*2.;
 
 
     vec2 xy = gl_FragCoord.xy/u_resolution;
